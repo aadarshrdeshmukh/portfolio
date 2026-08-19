@@ -31,15 +31,17 @@ const projects: Project[] = [
     link: "https://github.com/aadarshrdeshmukh/pathlab-digital-pathology-cloud",
   },
   {
-    name: "DataVault Analytics",
-    description: "High-throughput database monitoring dashboard with real-time operational metrics.",
-    tags: ["Next.js", "PostgreSQL", "TailwindCSS", "FastAPI"],
-    link: "https://github.com/aadarshrdeshmukh",
+    name: "Co-Exist",
+    description:
+      "Social presence platform designed to combat situational loneliness — connecting people for shared quiet moments and focus without the pressure of dating or networking.",
+    tags: ["Next.js", "React", "TailwindCSS", "TypeScript", "Full Stack"],
+    link: "https://github.com/aadarshrdeshmukh/Co-Exist",
   },
   {
-    name: "NetWatch Systems",
-    description: "Distributed system observability platform with Prometheus and Grafana alerts.",
-    tags: ["Python", "FastAPI", "Docker", "Prometheus", "Grafana"],
+    name: "Pediatric Clinic & Healthcare ERP",
+    description:
+      "Production-ready clinical infrastructure featuring real-time smart hybrid queues, IAP growth chart tracking, digital vaccination passports, and automated GST billing.",
+    tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Socket.io", "TailwindCSS"],
     link: "https://github.com/aadarshrdeshmukh",
   },
 ];
@@ -79,7 +81,7 @@ export default function RecentProjects() {
         recent projects
       </h2>
 
-      <div className="max-w-4xl w-full">
+      <div className="w-full">
         {projects.map((project, i) => (
           <a
             key={project.name}

@@ -60,7 +60,7 @@ export default function About() {
             Aadarsh Deshmukh.
           </h2>
           <p className="about-reveal text-sm md:text-base text-neutral-500 mb-1 font-sans">
-            Full stack developer & DevOps
+            Freelance Full stack developer &amp; DevOps
           </p>
           <p className="about-reveal text-sm md:text-base text-neutral-400 mb-10 font-sans">
             India
@@ -68,14 +68,20 @@ export default function About() {
 
           <p className="about-reveal text-base md:text-lg leading-relaxed text-neutral-600 font-sans mb-5">
             I build web apps from the database layer up to the
-            pixels people click on. React, Node, APIs, databases —
-            I work across the whole stack and care about getting
-            the details right at every layer.
+            pixels people click on. React, Node, APIs, and cloud
+            deployments — I work across the stack and care about
+            shipping software that runs reliably in production.
           </p>
-          <p className="about-reveal text-base md:text-lg leading-relaxed text-neutral-600 font-sans mb-12">
-            I also handle the DevOps side of things so what I build
-            actually stays running. If I wrote it, I want to sleep
-            at night knowing it won&apos;t wake me up.
+          <p className="about-reveal text-base md:text-lg leading-relaxed text-neutral-600 font-sans mb-5">
+            Currently, I freelance with teams and founders to bring
+            new ideas to life. Alongside that, I&apos;ve been diving
+            deep into AI &amp; Machine Learning from scratch — getting
+            my hands dirty with the fundamentals and exploring how
+            intelligent features fit into modern web architecture.
+          </p>
+          <p className="about-reveal text-base md:text-lg leading-relaxed text-neutral-600 font-sans mb-10">
+            Always open to interesting freelance work, cool engineering
+            problems, and building things that actually hold up.
           </p>
 
           <a

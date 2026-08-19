@@ -35,11 +35,11 @@ export default function Footer() {
               Email
             </p>
             <a
-              href="mailto:hello@aadarsh.dev"
+              href="mailto:aadarshdeshmukh892@gmail.com"
               className="text-base md:text-lg text-neutral-300 hover:text-accent transition-colors flex items-center gap-2"
             >
               <HugeiconsIcon icon={Mail01Icon} size={18} strokeWidth={1.5} color="currentColor" />
-              hello@aadarsh.dev
+              aadarshdeshmukh892@gmail.com
             </a>
           </div>
 
@@ -49,7 +49,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/aadarshrdeshmukh"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -58,7 +58,7 @@ export default function Footer() {
                 <HugeiconsIcon icon={GithubIcon} size={22} strokeWidth={1.5} color="currentColor" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/aadarshrdeshmukh/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"

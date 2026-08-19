@@ -96,7 +96,7 @@ export default function Header() {
           {/* Right — Social Icons */}
           <div className="flex items-center gap-1">
             <a
-              href="https://github.com"
+              href="https://github.com/aadarshrdeshmukh"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -110,7 +110,7 @@ export default function Header() {
               />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/aadarshrdeshmukh/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -129,32 +129,40 @@ export default function Header() {
 
       {/* Full-screen navigation overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col items-center justify-center ${
+        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col items-center justify-center ${
           menuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <nav className="flex flex-col items-center gap-8">
-          {["Home", "About", "Work", "Skills", "Contact"].map(
-            (item, index) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                className={`text-4xl md:text-6xl font-light text-neutral-900 hover:text-neutral-500 transition-all duration-500 font-heading ${
-                  menuOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{
-                  transitionDelay: menuOpen ? `${index * 80 + 200}ms` : "0ms",
-                }}
-              >
-                {item}
-              </a>
-            )
-          )}
+        <nav className="flex flex-col items-center gap-5 md:gap-7">
+          {[
+            { label: "Home", href: "#home" },
+            { label: "Work", href: "#work" },
+            { label: "About", href: "#about" },
+            { label: "Skills", href: "#skills" },
+            { label: "Projects", href: "#projects" },
+            { label: "Contact", href: "#contact" },
+          ].map((item, index) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              className={`group flex items-baseline gap-3 text-3xl md:text-5xl lg:text-6xl font-light text-neutral-900 hover:text-accent transition-all duration-500 font-heading ${
+                menuOpen
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+              style={{
+                transitionDelay: menuOpen ? `${index * 60 + 150}ms` : "0ms",
+              }}
+            >
+              <span className="text-xs md:text-sm text-neutral-400 font-mono group-hover:text-accent transition-colors">
+                0{index + 1}
+              </span>
+              <span>{item.label}</span>
+            </a>
+          ))}
         </nav>
       </div>
     </>
