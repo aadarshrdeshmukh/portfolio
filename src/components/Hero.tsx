@@ -26,9 +26,11 @@ export default function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const chars = gsap.utils.toArray<HTMLElement>(".hero-char", sectionRef.current);
+      
+      // Keep everything hidden initially
       chars.forEach((el) => {
         gsap.set(el, {
-          y: -150,
+          y: -160,
           opacity: 0,
         });
       });
@@ -41,43 +43,81 @@ export default function Hero() {
         gsap.set(dotRef.current, { scale: 0, opacity: 0 });
       }
 
-      const tl = gsap.timeline({
-        delay: 0.3,
-      });
+      const startHeroAnimation = () => {
+        const tl = gsap.timeline({
+          delay: 0.15,
+        });
 
-      // Subtitle fades in
-      tl.to(subtitleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-
-      // Each character drops and bounces on landing — one at a time
-      chars.forEach((el, i) => {
-        tl.to(
-          el,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.45,
-            ease: "bounce.out",
-          },
-          0.5 + i * 0.035
-        );
-      });
-
-      // Full stop pops in at the end
-      tl.to(
-        dotRef.current,
-        {
-          scale: 1,
+        // 1. Subtitle fades in first
+        tl.to(subtitleRef.current, {
           opacity: 1,
-          duration: 0.5,
-          ease: "back.out(3)",
-        },
-        "-=0.1"
-      );
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+        });
+
+        // 2. Each character drops and bounces individually across the full text
+        chars.forEach((el, i) => {
+          tl.to(
+            el,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.45,
+              ease: "bounce.out",
+            },
+            0.3 + i * 0.032
+          );
+        });
+
+        // 3. Cute, slow blooming full stop with elastic squash & glow
+        tl.to(
+          dotRef.current,
+          {
+            scaleX: 1.4,
+            scaleY: 0.6,
+            opacity: 1,
+            duration: 0.4,
+            ease: "power2.out",
+          },
+          "+=0.1"
+        )
+        .to(
+          dotRef.current,
+          {
+            scaleX: 0.85,
+            scaleY: 1.25,
+            duration: 0.35,
+            ease: "power1.inOut",
+          }
+        )
+        .to(
+          dotRef.current,
+          {
+            scaleX: 1,
+            scaleY: 1,
+            duration: 0.6,
+            ease: "elastic.out(1.4, 0.3)",
+          }
+        );
+      };
+
+      // Listen for intro loader completion
+      const handleIntroComplete = () => {
+        startHeroAnimation();
+      };
+
+      window.addEventListener("portfolio-intro-complete", handleIntroComplete, { once: true });
+
+      // Fallback in case intro was already completed or skipped
+      const fallbackTimer = setTimeout(() => {
+        startHeroAnimation();
+      }, 3500);
+
+      return () => {
+        window.removeEventListener("portfolio-intro-complete", handleIntroComplete);
+        clearTimeout(fallbackTimer);
+      };
     }, sectionRef);
 
     return () => ctx.revert();
@@ -114,7 +154,8 @@ export default function Hero() {
         {isLastLine && (
           <span
             ref={dotRef}
-            className="inline-block text-accent origin-center ml-1"
+            className="inline-block text-accent origin-bottom ml-1 cursor-pointer transition-transform duration-300 hover:scale-150 hover:-rotate-12 select-none drop-shadow-[0_2px_8px_rgba(232,93,58,0.4)]"
+            title="✨"
           >
             .
           </span>
