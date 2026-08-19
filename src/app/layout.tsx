@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Inter } from "next/font/google";
 import Header from "@/components/Header";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -17,7 +18,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Aadarsh Deshmukh — Portfolio",
   description:
-    "UI/UX designer, front-end enthusiast & full stack developer. Creating growth-driven products & brands.",
+    "Full stack developer & DevOps engineer. Building products that scale clean, ship fast, and hold up.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -27,8 +28,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${outfit.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-neutral-900">
-        <Header />
-        <main className="flex-1 pt-[60px]">{children}</main>
+        <SmoothScroll>
+          <Header />
+          <main className="flex-1 pt-[60px]">{children}</main>
+        </SmoothScroll>
       </body>
     </html>
   );
