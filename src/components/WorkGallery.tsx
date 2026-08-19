@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -9,22 +9,53 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface WorkItem {
   id: number;
-  src: string | null;
+  src?: string | null;
+  images?: string[];
+  phoneMockups?: string[];
   alt: string;
   bg: string;
 }
 
 const workItems: WorkItem[] = [
-  { id: 1, src: null, alt: "Project 1", bg: "bg-neutral-900" },
-  { id: 2, src: null, alt: "Project 2", bg: "bg-rose-400/60" },
-  { id: 3, src: null, alt: "Project 3", bg: "bg-neutral-300" },
-  { id: 4, src: null, alt: "Project 4", bg: "bg-neutral-700" },
-  { id: 5, src: null, alt: "Project 5", bg: "bg-stone-400" },
-  { id: 6, src: null, alt: "Project 6", bg: "bg-neutral-200" },
+  { id: 1, src: "/projects/pathlab.png", alt: "PathLab — Digital Pathology Cloud", bg: "bg-neutral-900" },
+  {
+    id: 2,
+    images: [
+      "/projects/pharmacare-landing.png",
+      "/projects/pharmacare-dashboard.png",
+    ],
+    alt: "PharmaCare — Management Platform",
+    bg: "bg-[#fbfaf8]",
+  },
+  {
+    id: 3,
+    phoneMockups: [
+      "/projects/coexist-feed.png",
+      "/projects/coexist-radar.png",
+    ],
+    alt: "Co-Exist — Presence Platform",
+    bg: "bg-neutral-950",
+  },
+  {
+    id: 4,
+    src: "/projects/pediatric-clinic.png",
+    alt: "Pediatric Clinic & Healthcare ERP",
+    bg: "bg-[#faf9f6]",
+  },
+  {
+    id: 5,
+    src: "/projects/insightx.png",
+    alt: "InsightX — Real-Time Streaming Analytics",
+    bg: "bg-white",
+  },
+  {
+    id: 6,
+    src: "/projects/bitblitz.png",
+    alt: "BitBlitz — Real-Time Auction Platform",
+    bg: "bg-black",
+  },
 ];
 
-// Stacked offsets — each card is slightly shifted so you can see them all
-// Creates a fanned-out stack effect in the center
 const stackOffsets = [
   { x: -18, y: -14, rotation: -6 },
   { x: 8, y: -22, rotation: 3 },
@@ -33,6 +64,186 @@ const stackOffsets = [
   { x: 14, y: 18, rotation: 5 },
   { x: -6, y: 24, rotation: -2 },
 ];
+
+function MultiImageCell({
+  item,
+  cellRef,
+}: {
+  item: WorkItem;
+  cellRef: (el: HTMLDivElement | null) => void;
+}) {
+  const [activeTab, setActiveTab] = useState<"side-by-side" | "landing" | "dashboard">("side-by-side");
+  const images = item.images || [];
+
+  return (
+    <div
+      ref={cellRef}
+      className="relative aspect-[16/10] overflow-hidden group will-change-transform bg-neutral-950 flex flex-col"
+    >
+      {/* Top Tab Switcher */}
+      <div className="absolute top-2 left-2 right-2 z-20 flex items-center justify-between pointer-events-auto">
+        <span className="text-[11px] text-white/90 font-mono bg-black/75 backdrop-blur-md px-2 py-0.5 rounded">
+          PharmaCare
+        </span>
+        <div className="flex items-center gap-1 bg-black/80 backdrop-blur-md p-0.5 rounded-full border border-neutral-800 text-[10px] font-sans">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveTab("side-by-side");
+            }}
+            className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+              activeTab === "side-by-side"
+                ? "bg-accent text-white font-medium shadow-sm"
+                : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            Side by Side
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveTab("landing");
+            }}
+            className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+              activeTab === "landing"
+                ? "bg-accent text-white font-medium shadow-sm"
+                : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            Landing
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveTab("dashboard");
+            }}
+            className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+              activeTab === "dashboard"
+                ? "bg-accent text-white font-medium shadow-sm"
+                : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            Dashboard
+          </button>
+        </div>
+      </div>
+
+      {/* Content Rendering */}
+      <div className="relative w-full h-full flex">
+        {activeTab === "side-by-side" ? (
+          <div className="grid grid-cols-2 divide-x divide-neutral-800 w-full h-full">
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src={images[0]}
+                alt="PharmaCare Landing"
+                fill
+                unoptimized
+                className="object-cover object-top transition-transform duration-500 hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 20vw"
+              />
+              <span className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm text-[9px] text-neutral-300 font-mono px-2 py-0.5 rounded">
+                Landing
+              </span>
+            </div>
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src={images[1]}
+                alt="PharmaCare Dashboard"
+                fill
+                unoptimized
+                className="object-cover object-top transition-transform duration-500 hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 20vw"
+              />
+              <span className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm text-[9px] text-neutral-300 font-mono px-2 py-0.5 rounded">
+                Dashboard
+              </span>
+            </div>
+          </div>
+        ) : activeTab === "landing" ? (
+          <div className="relative w-full h-full overflow-hidden">
+            <Image
+              src={images[0]}
+              alt="PharmaCare Landing"
+              fill
+              unoptimized
+              className="object-cover object-top transition-transform duration-500 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </div>
+        ) : (
+          <div className="relative w-full h-full overflow-hidden">
+            <Image
+              src={images[1]}
+              alt="PharmaCare Dashboard"
+              fill
+              unoptimized
+              className="object-cover object-top transition-transform duration-500 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockupCell({
+  item,
+  cellRef,
+}: {
+  item: WorkItem;
+  cellRef: (el: HTMLDivElement | null) => void;
+}) {
+  const images = item.phoneMockups || [];
+
+  return (
+    <div
+      ref={cellRef}
+      className="relative aspect-[16/10] overflow-hidden group will-change-transform bg-gradient-to-br from-neutral-950 via-[#0d0d0d] to-[#161616] flex items-center justify-center p-2 md:p-4"
+    >
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 bg-radial from-[#6ee7b7]/15 via-transparent to-transparent pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+
+      {/* 3D Angled Dual Phone Showcase */}
+      <div className="relative flex items-center justify-center gap-2 sm:gap-4 md:gap-5 w-full h-full transform rotate-[-8deg] group-hover:rotate-[-4deg] group-hover:scale-105 transition-all duration-700 ease-out">
+        {/* Left Phone (Feed) */}
+        <div className="relative h-[86%] aspect-[9/19] rounded-[18px] md:rounded-[22px] border-[2.5px] border-neutral-700/80 bg-black shadow-[0_16px_36px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.08)] overflow-hidden shrink-0 -translate-y-1.5 transition-transform duration-500 group-hover:-translate-y-2.5">
+          {/* Top Speaker / Dynamic Island */}
+          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-6 md:w-8 h-1.5 md:h-2 bg-neutral-900 rounded-full z-20" />
+          <Image
+            src={images[0]}
+            alt="Co-Exist Feed"
+            fill
+            unoptimized
+            className="object-cover object-top"
+            sizes="(max-width: 768px) 30vw, 15vw"
+          />
+        </div>
+
+        {/* Right Phone (Radar) */}
+        <div className="relative h-[86%] aspect-[9/19] rounded-[18px] md:rounded-[22px] border-[2.5px] border-neutral-700/80 bg-black shadow-[0_20px_44px_rgba(0,0,0,0.95),0_0_0_1px_rgba(255,255,255,0.08)] overflow-hidden shrink-0 translate-y-1.5 transition-transform duration-500 group-hover:translate-y-2.5">
+          {/* Top Speaker / Dynamic Island */}
+          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-6 md:w-8 h-1.5 md:h-2 bg-neutral-900 rounded-full z-20" />
+          <Image
+            src={images[1]}
+            alt="Co-Exist Radar"
+            fill
+            unoptimized
+            className="object-cover object-top"
+            sizes="(max-width: 768px) 30vw, 15vw"
+          />
+        </div>
+      </div>
+
+      {/* Label Badge */}
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-end p-3 pointer-events-none z-30">
+        <span className="text-white text-xs font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded">
+          {item.alt}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function WorkGallery() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -49,7 +260,6 @@ export default function WorkGallery() {
       const gridCenterX = gridRect.width / 2;
       const gridCenterY = gridRect.height / 2;
 
-      // Calculate where each cell needs to go to reach center (its offset from its grid position to center)
       cells.forEach((el, i) => {
         if (!el) return;
         const cellRect = el.getBoundingClientRect();
@@ -73,7 +283,6 @@ export default function WorkGallery() {
         gsap.set(pillRef.current, { scale: 1, opacity: 1 });
       }
 
-      // On scroll — snap to grid positions fast
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -82,10 +291,8 @@ export default function WorkGallery() {
         },
       });
 
-      // Small pause to let the user see the stack
       tl.to({}, { duration: 0.3 });
 
-      // All cells snap to their positions simultaneously but staggered slightly
       cells.forEach((el, i) => {
         tl.to(
           el,
@@ -101,7 +308,6 @@ export default function WorkGallery() {
         );
       });
 
-      // Pill does a subtle pulse after
       tl.to(
         pillRef.current,
         {
@@ -123,35 +329,62 @@ export default function WorkGallery() {
       <div className="relative overflow-hidden">
         {/* 3x2 Grid */}
         <div ref={gridRef} className="grid grid-cols-3 grid-rows-2">
-          {workItems.map((item, i) => (
-            <div
-              key={item.id}
-              ref={(el) => {
-                cellRefs.current[i] = el;
-              }}
-              className="relative aspect-[4/3] overflow-hidden group cursor-pointer will-change-transform"
-            >
-              {item.src ? (
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="33vw"
+          {workItems.map((item, i) => {
+            if (item.images) {
+              return (
+                <MultiImageCell
+                  key={item.id}
+                  item={item}
+                  cellRef={(el) => {
+                    cellRefs.current[i] = el;
+                  }}
                 />
-              ) : (
-                <div
-                  className={`w-full h-full ${item.bg} transition-all duration-500 group-hover:scale-110 group-hover:brightness-110`}
-                />
-              )}
+              );
+            }
 
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                <span className="text-white text-xs md:text-sm font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  {item.alt}
-                </span>
+            if (item.phoneMockups) {
+              return (
+                <PhoneMockupCell
+                  key={item.id}
+                  item={item}
+                  cellRef={(el) => {
+                    cellRefs.current[i] = el;
+                  }}
+                />
+              );
+            }
+
+            return (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  cellRefs.current[i] = el;
+                }}
+                className="relative aspect-[16/10] overflow-hidden group cursor-pointer will-change-transform bg-neutral-950 flex items-center justify-center"
+              >
+                {item.src ? (
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    unoptimized
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                ) : (
+                  <div
+                    className={`w-full h-full ${item.bg} transition-all duration-500 group-hover:scale-105 group-hover:brightness-110`}
+                  />
+                )}
+
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-end p-3 pointer-events-none">
+                  <span className="text-white text-xs font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded">
+                    {item.alt}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Pill label — centered */}
