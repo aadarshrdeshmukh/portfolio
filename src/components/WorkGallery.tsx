@@ -137,9 +137,8 @@ function MultiImageCell({
                 src={images[0]}
                 alt="PharmaCare Landing"
                 fill
-                unoptimized
                 className="object-cover object-top transition-transform duration-500 hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 20vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
               />
               <span className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm text-[9px] text-neutral-300 font-mono px-2 py-0.5 rounded">
                 Landing
@@ -150,9 +149,8 @@ function MultiImageCell({
                 src={images[1]}
                 alt="PharmaCare Dashboard"
                 fill
-                unoptimized
                 className="object-cover object-top transition-transform duration-500 hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 20vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
               />
               <span className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm text-[9px] text-neutral-300 font-mono px-2 py-0.5 rounded">
                 Dashboard
@@ -165,9 +163,8 @@ function MultiImageCell({
               src={images[0]}
               alt="PharmaCare Landing"
               fill
-              unoptimized
               className="object-cover object-top transition-transform duration-500 hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 33vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
         ) : (
@@ -176,9 +173,8 @@ function MultiImageCell({
               src={images[1]}
               alt="PharmaCare Dashboard"
               fill
-              unoptimized
               className="object-cover object-top transition-transform duration-500 hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 33vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
         )}
@@ -214,9 +210,8 @@ function PhoneMockupCell({
             src={images[0]}
             alt="Co-Exist Feed"
             fill
-            unoptimized
             className="object-cover object-top"
-            sizes="(max-width: 768px) 30vw, 15vw"
+            sizes="(max-width: 640px) 40vw, (max-width: 1024px) 25vw, 15vw"
           />
         </div>
 
@@ -228,9 +223,8 @@ function PhoneMockupCell({
             src={images[1]}
             alt="Co-Exist Radar"
             fill
-            unoptimized
             className="object-cover object-top"
-            sizes="(max-width: 768px) 30vw, 15vw"
+            sizes="(max-width: 640px) 40vw, (max-width: 1024px) 25vw, 15vw"
           />
         </div>
       </div>
@@ -367,9 +361,8 @@ export default function WorkGallery() {
                     src={item.src}
                     alt={item.alt}
                     fill
-                    unoptimized
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div

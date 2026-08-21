@@ -133,7 +133,7 @@ export default function Hero() {
     return (
       <span
         key={lineIdx}
-        className="block text-[clamp(2.2rem,7.8vw,6.5rem)] font-semibold whitespace-nowrap"
+        className="block text-[clamp(1.75rem,7.2vw,6.5rem)] font-semibold whitespace-normal sm:whitespace-nowrap"
       >
         {chars.map((char, i) => {
           const isSpace = char === " ";
