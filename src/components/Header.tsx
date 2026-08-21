@@ -18,12 +18,11 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const heroHeight = window.innerHeight;
 
-      // Past the hero section — hide on scroll down, show on scroll up
-      if (currentY > heroHeight) {
-        setHidden(currentY > lastScrollY.current);
+      if (currentY > 40) {
         setScrolled(true);
+        // Hide immediately on scroll down, show on scroll up
+        setHidden(currentY > lastScrollY.current);
       } else {
         setHidden(false);
         setScrolled(false);
@@ -47,16 +46,16 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
-        <div className="flex items-center justify-between px-6 md:px-10 py-4">
+        <div className="flex items-center justify-between px-6 md:px-12 lg:px-16 py-5 md:py-7">
           {/* Left — Hamburger / Close */}
           <button
             id="menu-toggle"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-neutral-100/50 transition-colors cursor-pointer"
+            className="flex items-center justify-center w-11 h-11 rounded-full hover:bg-neutral-100/70 transition-colors cursor-pointer"
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
           >
-            <div className="relative w-5 h-5">
+            <div className="relative w-6 h-6">
               <span
                 className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
                   menuOpen
@@ -66,8 +65,8 @@ export default function Header() {
               >
                 <HugeiconsIcon
                   icon={Cancel01Icon}
-                  size={20}
-                  strokeWidth={1.5}
+                  size={24}
+                  strokeWidth={1.75}
                   color="currentColor"
                 />
               </span>
@@ -80,8 +79,8 @@ export default function Header() {
               >
                 <HugeiconsIcon
                   icon={Menu02Icon}
-                  size={20}
-                  strokeWidth={1.5}
+                  size={24}
+                  strokeWidth={1.75}
                   color="currentColor"
                 />
               </span>
@@ -89,23 +88,23 @@ export default function Header() {
           </button>
 
           {/* Center — Name */}
-          <span className="absolute left-1/2 -translate-x-1/2 text-sm tracking-[0.2em] font-medium text-neutral-900 select-none">
+          <span className="absolute left-1/2 -translate-x-1/2 text-base md:text-lg font-heading font-medium tracking-[0.12em] text-neutral-900 select-none">
             Aadarsh Deshmukh
           </span>
 
           {/* Right — Social Icons */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <a
               href="https://github.com/aadarshrdeshmukh"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-neutral-100/50 transition-colors text-neutral-700 hover:text-neutral-900"
+              className="flex items-center justify-center w-11 h-11 rounded-full hover:bg-neutral-100/70 transition-colors text-neutral-700 hover:text-neutral-900"
             >
               <HugeiconsIcon
                 icon={GithubIcon}
-                size={19}
-                strokeWidth={1.5}
+                size={22}
+                strokeWidth={1.75}
                 color="currentColor"
               />
             </a>
@@ -114,12 +113,12 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-neutral-100/50 transition-colors text-neutral-700 hover:text-neutral-900"
+              className="flex items-center justify-center w-11 h-11 rounded-full hover:bg-neutral-100/70 transition-colors text-neutral-700 hover:text-neutral-900"
             >
               <HugeiconsIcon
                 icon={Linkedin01Icon}
-                size={19}
-                strokeWidth={1.5}
+                size={22}
+                strokeWidth={1.75}
                 color="currentColor"
               />
             </a>

@@ -5,11 +5,13 @@ import About from "@/components/About";
 import WhatIDo from "@/components/WhatIDo";
 import RecentProjects from "@/components/RecentProjects";
 import Footer from "@/components/Footer";
+import SectionNav from "@/components/SectionNav";
 
 export default function Home() {
   return (
     <>
       <IntroLoader />
+      <SectionNav />
       <Hero />
       <WorkGallery />
       <About />

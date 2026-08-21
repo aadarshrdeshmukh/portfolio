@@ -10,7 +10,8 @@ export default function IntroLoader({ onComplete }: { onComplete?: () => void })
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    // Prevent scrolling during intro
+    // Reset to top and prevent scrolling during intro
+    window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
 
     const ctx = gsap.context(() => {
